@@ -52,7 +52,7 @@
 
 The purpose of this example project is to illustrate how to build a Gig Performer extension using HTML, CSS and JavaScript to build the UI as opposed to a system like JUCE or creating graphical elements long-hand in C++ code. Instead, you create a single HTML page whereby you can bind pseudo-functions within JavaScript to C++ functions in your code that can, in turn, access the GigPerformer API. It is a "Hello World" type extension to show what is possible as a starting point. What the extension actually does is to pop-up a window that displays the current set list in a touchscreen friendly format allowing you to easily select songs from list (by touching the song name) and GigPerformer will switch you to that song.
 
-The intention is to give you a boiler-plate starting point to write your own extensions using HTML and JavaScript for the front-end aloingside C++ for the back end. It illuistrates ther basic techniques for 2-way binding of functions within the C++ code of the back end to functions embedded within the JavaScript code of the front end. It is my hope that it will enable more developers get into creating GigPerformer extensions where they can leverage the knowledge they already have of HTML, CSS and JavaScript for the UI and only need to delve into C++ coding for the actual interaction with the GigPerformer API.
+The intention is to give you a boiler-plate starting point to write your own extensions using HTML and JavaScript for the front-end alongside C++ for the back end. It illuistrates the basic techniques for 2-way binding of functions within the C++ code of the back end to functions embedded within the JavaScript code of the front end. It is my hope that it will enable more developers get into creating GigPerformer extensions where they can leverage the knowledge they already have of HTML, CSS and JavaScript for the UI and only need to delve into C++ coding for the actual interaction with the GigPerformer API.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -96,7 +96,7 @@ If you wish to clone the repository and track your own changes to the code, you 
     set (PROJECT_VERSION "1.0")
     set (PROJECT_NAME "BasicSongChooser")
    ```
-3. All the C++ code for your project can be added to `LibMain.h` and `LibMain.cpp`.
+3. All the C++ code for your project can be added to `LibMain.h` and `LibMain.cpp`. Alternatively you can create a new class for your code and `#include` it into `LibMain`.
 4. The `content` directory contains all the HTML, CSS, JavaScript and image asset files for the UI of your project. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

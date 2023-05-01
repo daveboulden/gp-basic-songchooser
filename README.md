@@ -34,6 +34,7 @@
       </ul>
     </li>
     <li><a href="#building">Building</a></li>
+    <li><a href="#operating">Operating</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -119,7 +120,7 @@ The build script will automatically scan your `content` directory and embed the 
 <!-- OPERATION EXAMPLES -->
 ## Operating
 
-The extension listens for a specific widget so that you can open the Basic Soing Chooser bny pressing a button widget. Just give the widget an `OSC/Script Name` of: **showChooser** 
+The extension listens for a specific widget so that you can open the Basic Song Chooser by pressing a button widget. Just give the widget an `OSC/Script Name` of: **showChooser** 
 
 <div align="center">
     <img src="images/config-widget.png" alt="Configure widget">

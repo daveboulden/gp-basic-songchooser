@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Run the Saucer CLI tool to embed the HMTL file structure
 saucer embed "content"
 
 targetFolder='/Users/Shared/Gig Performer/Extensions'

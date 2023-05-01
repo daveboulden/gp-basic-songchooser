@@ -95,7 +95,8 @@ public:
                 initChooser();
             }
         }
-    } 
+    }
+
 
 
     void Initialization() override {

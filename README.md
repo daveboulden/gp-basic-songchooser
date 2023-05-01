@@ -120,7 +120,7 @@ Use the supplied scripts to build your project:
 * Windows - `build.cmd`
 * Mac - `build.sh`
 
-The build script will automatically scan your `content` directory and embed the HTML, CSS, JavaScript and image asset files into your project. The encoded files are stored in the `embedding` directory that will be generated the first time you build the project. It will also download the latest version of the [Saucer](saucer-url) library which is the abstraction layer between your code and the web-rendering framework appropriate to your platform. [Saucer](saucer-url) will then, in turn, automatically download the latest version of the web-rendering framework appropriate to your PC or Mac (currently `WebView2` on Windows or `Qt5/6` on Mac).
+The build script will automatically scan your `content` directory and embed the HTML, CSS, JavaScript and image asset files into your project. The encoded files are stored in the `embedding` directory that will be generated the first time you build the project. It will also download the latest version of the [Saucer](https://saucer.github.io/) library which is the abstraction layer between your code and the web-rendering framework appropriate to your platform. [Saucer](https://saucer.github.io/) will then, in turn, automatically download the latest version of the web-rendering framework appropriate to your PC or Mac (currently `WebView2` on Windows or `Qt5/6` on Mac).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

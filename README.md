@@ -116,6 +116,16 @@ The build script will automatically scan your `content` directory and embed the 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<!-- OPERATION EXAMPLES -->
+## Operating
+
+The extension listens for a specific widget so that you can open the Basic Soing Chooser bny pressing a button widget. Just give the widget an `OSC/Script Name` of: **showChooser** 
+
+<div align="center">
+    <img src="images/config-widget.png" alt="Configure widget">
+</div>
+
+
 <!-- CONTRIBUTING -->
 ## Contributing
 

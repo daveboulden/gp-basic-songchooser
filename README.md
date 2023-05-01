@@ -96,9 +96,8 @@ If you wish to clone the repository and track your own changes to the code, you 
     set (PROJECT_VERSION "1.0")
     set (PROJECT_NAME "BasicSongChooser")
    ```
-3. Download a copy of the current [Gig Performer API](https://github.com/gigperformer/gp-sdk) and save it within the `GP_SDK` directory.
-4. All the C++ code for your project can be added to `LibMain.h` and `LibMain.cpp`.
-5. The `content` directory contains all the HTML, CSS, JavaScript and image asset files for the UI of your project. 
+3. All the C++ code for your project can be added to `LibMain.h` and `LibMain.cpp`.
+4. The `content` directory contains all the HTML, CSS, JavaScript and image asset files for the UI of your project. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -149,7 +148,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [Dave Boulden](https://boulden.digital) - dave@da-media.co.uk
 
-Project Link: [https://github.com/daveboulden/gp-songchooser-basic](https://github.com/daveboulden/gp-songchooser-basic)
+Project Link: [https://github.com/daveboulden/gp-basic-songchooser](https://github.com/daveboulden/gp-basic-songchooser)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

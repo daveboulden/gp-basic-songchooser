@@ -89,7 +89,7 @@ If you wish to clone the repository and track your own changes to the code, you 
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/daveboulden/gp-songchooser-basic.git
+   git clone https://github.com/daveboulden/gp-basic-songchooser.git
    ```
 2. Change the `PROJECT_VERSION` and `PROJECT_NAME` values in `CMakeLists.txt` to suit your own project
    ```cmake

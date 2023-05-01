@@ -80,11 +80,19 @@ Simply download the code or clone it to a local repository.
 
 ### Prerequisites
 
-You will need a C++ compiler and some form of text editor or IDE to add your code. 
+You will need a C++ compiler and some form of text editor or IDE to add your code.  I personally use [Microsoft VSCode](https://code.visualstudio.com/).
 
-The build process is handled by [CMAKE](). I personally use [Microsoft VSCode](https://code.visualstudio.com/). 
+The build process is handled by [CMAKE](https://cmake.org/) which you will need to install before building the project. 
 
 If you wish to clone the repository and track your own changes to the code, you will need [Git](https://git-scm.com/).
+
+If you can use [NPM](https://www.npmjs.com/) or [YARN](https://yarnpkg.com/) you will want to globally install the [Saucer App](https://www.npmjs.com/package/saucer-app) before building so that it can perform the "embedding" step of each build: 
+
+`npm install -g saucer-app`
+
+`yarn global add saucer-app`
+
+There are also GitHub Actions available for [Saucer CLI](https://github.com/saucer/saucer-cli/actions) for those who want to automate builds.
 
 ### Installation
 
@@ -112,7 +120,7 @@ Use the supplied scripts to build your project:
 * Windows - `build.cmd`
 * Mac - `build.sh`
 
-The build script will automatically scan your `content` directory and embed the HTML, CSS, JavaScript and image asset files into your project. The encoded files are stored in the `embedding` directory thay will be generated the first time you build the project. It will also download the latest version of the [Saucer](saucer-url) library which is the abstraction layer between your code and the web-rendering framework appropriate to your platform. [Saucer](saucer-url) will then, in turn, automatically download the latest version of the web-rendering framework appropriate to your PC or Mac (currently `WebView2` on Windows or `Qt5/6` on Mac).
+The build script will automatically scan your `content` directory and embed the HTML, CSS, JavaScript and image asset files into your project. The encoded files are stored in the `embedding` directory that will be generated the first time you build the project. It will also download the latest version of the [Saucer](saucer-url) library which is the abstraction layer between your code and the web-rendering framework appropriate to your platform. [Saucer](saucer-url) will then, in turn, automatically download the latest version of the web-rendering framework appropriate to your PC or Mac (currently `WebView2` on Windows or `Qt5/6` on Mac).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

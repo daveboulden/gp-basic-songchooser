@@ -11,17 +11,16 @@ cd build
 cmake ..
 
 ::Now build the project in DEBUG mode.
-cmake --build .
+::cmake --build .
 
 ::For RELEASE mode please execute this instead
-::cmake --build . --config Release
+cmake --build . --config Release
 
 ::All going well, you should now have a DLL in the Debug folder
 ::So now copy it to the location where GP can find it
 
-mkdir "C:\Users\Public\Documents\Gig Performer\Extensions"
-copy Debug\*.dll "%PUBLIC%\Documents\Gig Performer\Extensions"
-
+mkdir "..\dist"
+copy Release\*.dll ..\dist
 
 ::For RELEASE build please replace the "Debug" folder reference with "Release"
 

@@ -17,15 +17,18 @@ std::string  LibMain::GetMenuName(int index) {
 
 
 /***************************************************************************************************
- * 
+ *
+ *  If no pre-existing =Song chooser window is open: 
  *  Set indicator to show we want to open the Chooser Window once we are in SetList mode.
  *  Tell GP to swicth to SetList mode.
  * 
  ****************************************************************************************************/
 
 void LibMain::initChooser() {
-    showingChooser = true;      // set indicator thjat we are opening the Chooser Window once we are in SetList mode
-    switchToSetlistView();      // Switch GP to SetList mode
+    if (!isVisible) {               // don't try to open a new one if an existing one is already open
+        showingChooser = true;      // set indicator that we are opening the Chooser Window once we are in SetList mode
+        switchToSetlistView();      // Switch GP to SetList mode    
+    }
 }
 
 
@@ -44,10 +47,7 @@ std::string LibMain::getSongListFromGP () {
 
     for (int i = 0; i < getSongCount(); ++i) {
         thisSong = getSongName(i);
-        // thisArtist = getArtistName(i);
-        thisArtist = "";
-        transform(thisSong.begin(), thisSong.end(), thisSong.begin(), ::toupper);
-        transform(thisArtist.begin(), thisArtist.end(), thisArtist.begin(), ::toupper);
+        thisArtist = getArtistName(i);
         songList += "<li class='song-item' data-song-artist='" + thisSong + " | " + thisArtist + "'><a class='song-select' data-slot='" +
                     std::to_string(i) + "'>" + thisSong + " - " + thisArtist + "</a></li>";
     }
@@ -77,6 +77,9 @@ void LibMain::updateChooser() {
  ****************************************************************************************************/
 
 bool LibMain::showChooser() {
+    isVisible = true;
+    showingChooser = false;
+    
     m_smartview = std::make_unique<saucer::simple_smartview<saucer::serializers::json>>();
 
     m_smartview->set_title("Basic Song Chooser");
@@ -91,12 +94,20 @@ bool LibMain::showChooser() {
         return 0;
     });
 
+    m_smartview->on<saucer::window_event::close>([&]() {
+        isVisible = false;
+        return false;
+    });
+
     m_smartview->expose("getSongList", [&]() {
         return getSongListFromGP();
     });
 
-    m_smartview->embed(std::move(embedded::get_all_files()));
-    m_smartview->serve("index.html");
+    // m_smartview->embed(std::move(embedded::get_all_files()));
+    // m_smartview->serve("index.html");
+    m_smartview->embed_files(std::move(embedded::get_all_files()));
+    m_smartview->serve_embedded("index.html");
+
     m_smartview->set_dev_tools(false);  // set to true to show Developer Tools with in your browser window for debugging the JavaScript
     m_smartview->show();
     m_smartview->run();

@@ -27,6 +27,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 private:
     std::unique_ptr<saucer::simple_smartview<saucer::serializers::json>> m_smartview;   // the glolbal chooser window pointer
     bool showingChooser = false;    // used to indicate when we are opening a chooser window
+    bool isVisible = false;         // used to indicate when a song chooser window is open
 
 protected:
     // These are for creating menu items in Gig Performer that can be used to trigger external functions provided by the extension developer
@@ -84,13 +85,13 @@ public:
 
     /***************************************************************************************************
      * 
-     *  A widget value has changed. Check if it has the name "showChooser".
+     *  A widget value has changed. Check if it has the name "showBasicChooser".
      *  If it does, this is the panel button to open our chooser window, so start opening it.
      * 
      ****************************************************************************************************/
 
     void OnWidgetValueChanged(const std::string & widgetName, double newValue) override {
-        if (widgetName == "showChooser") {
+        if (widgetName == "showBasicChooser") {
             if (newValue == 1.0) {
                 initChooser();
             }

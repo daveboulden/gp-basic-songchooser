@@ -110,7 +110,7 @@ public:
         registerCallback("OnWidgetValueChanged");
         registerCallback("OnModeChanged");
         registerCallback("OnSetlistChanged");
-        listenForWidget("showChooser", true);           
+        listenForWidget("showBasicChooser", true);           
            
         consoleLog("path to library " + getPathToMe());  
     }

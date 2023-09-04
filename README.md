@@ -55,6 +55,9 @@ The purpose of this example project is to illustrate how to build a Gig Performe
 
 The intention is to give you a boiler-plate starting point to write your own extensions using HTML and JavaScript for the front-end alongside C++ for the back end. It illustrates the basic techniques for 2-way binding of functions within the C++ code of the back-end to functions embedded within the JavaScript code of the front-end. It is my hope that it will enable more developers get into creating GigPerformer extensions where they can leverage the knowledge they already have of HTML, CSS and JavaScript for the UI and only need to delve into C++ coding for the actual interaction with the GigPerformer API.
 
+### Caveat ###
+
+Currently the build doesn't work on a Mac. There are complications to getting the QT5/6 framework to cleanly compile within the project. A working Mac build will be forthcoming in the fullness of time.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -127,7 +130,7 @@ The build script will automatically scan your `content` directory and embed the 
 <!-- OPERATION EXAMPLES -->
 ## Operating
 
-The extension listens for a specific widget so that you can open the Basic Song Chooser by pressing a button widget. Just give the widget an `OSC/Script Name` of: **showChooser** 
+The extension listens for a specific widget so that you can open the Basic Song Chooser by pressing a button widget. Just give the widget an `OSC/Script Name` of: **showBasicChooser** 
 
 <div align="center">
     <img src="images/config-widget.png" alt="Configure widget">

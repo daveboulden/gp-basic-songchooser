@@ -51,6 +51,8 @@
     <img src="images/GP-basic-songchooser-screenshot.png" alt="Logo" width="600">
 </div>
 
+**NOTE: this branch is only compatible with Gig Performer v4.7 and above**
+
 The purpose of this example project is to illustrate how to build a Gig Performer extension using HTML, CSS and JavaScript to build the UI as opposed to a system like JUCE or creating graphical elements long-hand in C++ code. Instead, you create a single HTML page whereby you can bind pseudo-functions within JavaScript to C++ functions in your code that can, in turn, access the GigPerformer API. It is a "Hello World" type extension to show what is possible as a starting point. What the extension actually does is to pop-up a window that displays the current set list in a touchscreen friendly format allowing you to easily select songs from list (by touching the song name) and GigPerformer will switch you to that song.
 
 The intention is to give you a boiler-plate starting point to write your own extensions using HTML and JavaScript for the front-end alongside C++ for the back end. It illustrates the basic techniques for 2-way binding of functions within the C++ code of the back-end to functions embedded within the JavaScript code of the front-end. It is my hope that it will enable more developers get into creating GigPerformer extensions where they can leverage the knowledge they already have of HTML, CSS and JavaScript for the UI and only need to delve into C++ coding for the actual interaction with the GigPerformer API.

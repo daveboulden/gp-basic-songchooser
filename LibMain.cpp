@@ -47,9 +47,8 @@ std::string LibMain::getSongListFromGP () {
 
     for (int i = 0; i < getSongCount(); ++i) {
         thisSong = getSongName(i);
-        thisArtist = getArtistName(i);
-        songList += "<li class='song-item' data-song-artist='" + thisSong + " | " + thisArtist + "'><a class='song-select' data-slot='" +
-                    std::to_string(i) + "'>" + thisSong + " - " + thisArtist + "</a></li>";
+        songList += "<li class='song-item' data-song-artist='" + thisSong + "'><a class='song-select' data-slot='" +
+                    std::to_string(i) + "'>" + thisSong  + "</a></li>";
     }
 
     return songList;

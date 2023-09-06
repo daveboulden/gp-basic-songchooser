@@ -1,9 +1,9 @@
 #pragma once
 #include <gigperformer/sdk/GigPerformerAPI.h>
 
-#include "./build/_deps/choc-src/gui/choc_WebView.h"
-#include "./build/_deps/choc-src/gui/choc_DesktopWindow.h"
-#include "./build/_deps/choc-src/gui/choc_MessageLoop.h"
+#include "libs/choc/gui/choc_WebView.h"
+#include "libs/choc/gui/choc_DesktopWindow.h"
+#include "libs/choc/gui/choc_MessageLoop.h"
 
 // define an XML string describing your product
 const std::string XMLProductDescription =   

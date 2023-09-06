@@ -48,15 +48,15 @@ target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
 # Link libraries - fetch the Tracktion/choc library from GitHub and make it available to the project
 # --------------------------------------------------------------------------------------------------------
 
-include(FetchContent)
-FetchContent_Declare(
-    choc
-    GIT_REPOSITORY https://github.com/Tracktion/choc.git 
-    GIT_TAG ${CHOC_GIT_TAG}
-) 
-FetchContent_MakeAvailable(choc)
+# include(FetchContent)
+# FetchContent_Declare(
+#     choc
+#     GIT_REPOSITORY https://github.com/Tracktion/choc.git 
+#     GIT_TAG ${CHOC_GIT_TAG}
+# ) 
+# FetchContent_MakeAvailable(choc)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE choc)
+# target_link_libraries(${PROJECT_NAME} PRIVATE choc)
 
 
 

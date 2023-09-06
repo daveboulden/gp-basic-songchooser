@@ -7,9 +7,9 @@ cmake_minimum_required(VERSION 3.0)
 set (PROJECT_VERSION "1.0")
 set (PROJECT_NAME "BasicSongChooser")
 
-# Set the appropriate GIT TAGS for the GigPerformer SDK and Saucer 
+# Set the appropriate GIT TAGS for the GigPerformer SDK and Tracktion Choc 
 set (GP_SDK_GIT_TAG "beta")     # 6c5432518ef42ea0870fb44597e9d1d3780e2f98 / changes-4621 / beta / main / f6b1ad94a3af83afd269a327e93ddc6cf94cb1b1
-set (SAUCER_GIT_TAG "dev")     # master / dev / experimental     
+set (CHOC_GIT_TAG "main")     # main / develop     
 
 project(${PROJECT_NAME} VERSION ${PROJECT_VERSION})
 
@@ -45,18 +45,18 @@ target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
 
 
 # --------------------------------------------------------------------------------------------------------
-# Link libraries - fetch the Saucer library from GitHub and make it available to the project
+# Link libraries - fetch the Tracktion/choc library from GitHub and make it available to the project
 # --------------------------------------------------------------------------------------------------------
 
 include(FetchContent)
 FetchContent_Declare(
-    saucer 
-    GIT_REPOSITORY "https://github.com/saucer/saucer" 
-    GIT_TAG ${SAUCER_GIT_TAG}
+    choc
+    GIT_REPOSITORY https://github.com/Tracktion/choc.git 
+    GIT_TAG ${CHOC_GIT_TAG}
 ) 
-FetchContent_MakeAvailable(saucer)
+FetchContent_MakeAvailable(choc)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE saucer)
+target_link_libraries(${PROJECT_NAME} PRIVATE choc)
 
 
 
@@ -67,6 +67,12 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
+
+# On OSX, need to add the WebKit framework for WebView functionality
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_link_libraries(choc "-framework WebKit -framework CoreServices")
+endif ()
+
 
 # Let's set compiler-specific flags
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")

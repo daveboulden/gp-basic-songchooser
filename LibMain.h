@@ -1,10 +1,9 @@
 #pragma once
 #include <gigperformer/sdk/GigPerformerAPI.h>
 
-#include <saucer/smartview.hpp>
-#include <saucer/serializers/json.hpp>
-#include <embedding/all.hpp>
-#include <saucer/utils/future.hpp>
+#include "./build/_deps/choc-src/gui/choc_WebView.h"
+#include "./build/_deps/choc-src/gui/choc_DesktopWindow.h"
+#include "./build/_deps/choc-src/gui/choc_MessageLoop.h"
 
 // define an XML string describing your product
 const std::string XMLProductDescription =   
@@ -25,7 +24,7 @@ const std::string XMLProductDescription =
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
 private:
-    std::unique_ptr<saucer::simple_smartview<saucer::serializers::json>> m_smartview;   // the glolbal chooser window pointer
+    //std::unique_ptr<saucer::simple_smartview<saucer::serializers::json>> m_smartview;   // the glolbal chooser window pointer
     bool showingChooser = false;    // used to indicate when we are opening a chooser window
     bool isVisible = false;         // used to indicate when a song chooser window is open
 

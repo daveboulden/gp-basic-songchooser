@@ -69,9 +69,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 # On OSX, need to add the WebKit framework for WebView functionality
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(${PROJECT_NAME} "-framework WebKit -framework CoreServices")
-endif ()
+#if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+#    target_link_libraries(${PROJECT_NAME} "-framework WebKit -framework CoreServices")
+#endif ()
 
 
 # Let's set compiler-specific flags

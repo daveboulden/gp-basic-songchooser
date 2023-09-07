@@ -138,7 +138,6 @@ constexpr const auto html
         </script>
         <script>
             function setSongList(listHtml) {
-                console.log("Received: " + listHtml);
                 document.querySelector('#songlist').innerHTML = listHtml;
                 return true;
             }

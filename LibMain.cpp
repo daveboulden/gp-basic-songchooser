@@ -71,10 +71,8 @@ std::string LibMain::getSongListFromGP () {
 
 void LibMain::updateChooser() {
     if (window != nullptr) {
-        std::string newSongs = getSongListFromGP();
-        webview->evaluateJavascript("setSongList(" + newSongs + ")");
-        // webview->setHTML(html);
-        // saucer::forget(m_smartview->eval<bool>("setSongList({})",newSongs));
+        std::string newSongsJS = "setSongList(\"" + getSongListFromGP() + "\")";
+        webview->evaluateJavascript(newSongsJS);
     }
 }
 
@@ -86,7 +84,7 @@ void LibMain::updateChooser() {
  ****************************************************************************************************/
 
 bool LibMain::showChooser() {
-    isVisible = true;
+    // isVisible = true;
     showingChooser = false;
 
     choc::ui::setWindowsDPIAwareness(); // For Windows, we need to tell the OS we're high-DPI-aware
@@ -101,6 +99,8 @@ bool LibMain::showChooser() {
     window->setMaximumSize (1500, 1200);
     window->windowClosed = [&] { 
         isVisible = false;
+        window->setVisible(false);
+        // window.reset();
         choc::messageloop::stop(); 
     };
 
@@ -122,12 +122,13 @@ bool LibMain::showChooser() {
     });
 
     webview->bind ("selectSong", [&] (const choc::value::ValueView& args) -> choc::value::Value {
-        scriptLog(choc::json::toString (args), true);
+        int slot = -1;
 
-        int slot = args[0].getInt32();
-        switchToSong(slot, 0);
-        
-        scriptLog(std::to_string(slot), true);
+        if (args.isArray() && args.size() != 0) 
+            slot = args[0].getInt64();
+
+        if (slot != -1) 
+            switchToSong(slot, 0);
 
         return {};
     });

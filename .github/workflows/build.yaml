@@ -1,9 +1,9 @@
 name: Build
 on:
     pull_request:
-        branches: ["main"]
+        branches: ["basic-choc-test"]
     push:
-        branches: ["main"]
+        branches: ["basic-choc-test"]
 
 permissions:
     repository-projects: read

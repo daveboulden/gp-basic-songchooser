@@ -72,6 +72,8 @@ std::string LibMain::getSongListFromGP () {
 void LibMain::updateChooser() {
     if (window != nullptr) {
         std::string newSongs = getSongListFromGP();
+        webview->evaluateJavascript("setSongList(" + newSongs + ")");
+        // webview->setHTML(html);
         // saucer::forget(m_smartview->eval<bool>("setSongList({})",newSongs));
     }
 }
@@ -104,22 +106,22 @@ bool LibMain::showChooser() {
 
     choc::ui::WebView::Options wvopts = {false, false};
 
-    choc::ui::WebView webview(wvopts);
+    webview = std::make_unique<choc::ui::WebView>(wvopts);
 
-    window->setContent (webview.getViewHandle());
+    window->setContent (webview->getViewHandle());
 
-    webview.bind ("getSongListFromGP", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+    webview->bind ("getSongListFromGP", [&] (const choc::value::ValueView& args) -> choc::value::Value {
         std::string message = getSongListFromGP();
         return choc::value::createString (message);
     });
 
-    webview.bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
+    webview->bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
         window->setVisible(false);
         window.reset();
         return {};
     });
 
-    webview.bind ("selectSong", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+    webview->bind ("selectSong", [&] (const choc::value::ValueView& args) -> choc::value::Value {
         scriptLog(choc::json::toString (args), true);
 
         int slot = args[0].getInt32();
@@ -130,9 +132,7 @@ bool LibMain::showChooser() {
         return {};
     });
 
-    webview.setHTML (html);
-
-
+    webview->setHTML (html);
 
     window->toFront();
     choc::messageloop::run();

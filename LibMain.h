@@ -24,6 +24,8 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
 private:
     std::unique_ptr<choc::ui::DesktopWindow> window;    // the global chooser window pointer   
+    std::unique_ptr<choc::ui::WebView> webview;         // the global webview pointer   
+
     bool showingChooser = false;                        // used to indicate when we are opening a chooser window
     bool isVisible = false;                             // used to indicate when a song chooser window is open
 

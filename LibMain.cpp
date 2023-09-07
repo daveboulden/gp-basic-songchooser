@@ -1,7 +1,14 @@
 #include "LibMain.h"
+#include "webcontent.h"
+#include <iostream>
 
 std::string pathToMe; // This needs to be initialized from the initialization secttion of the LibMain class so it can be used in the standalone functions directly below
 std::vector<std::string> menuNames = { "Show Song Chooser"};    // List of menu items
+
+
+
+    //choc::ui::DesktopWindow window ({ 100, 100, 800, 600 });
+
 
 int LibMain::GetMenuCount() {
     return menuNames.size();
@@ -63,10 +70,10 @@ std::string LibMain::getSongListFromGP () {
  ****************************************************************************************************/
 
 void LibMain::updateChooser() {
-    // if (m_smartview != nullptr) {
-    //     std::string newSongs = getSongListFromGP();
-    //     saucer::forget(m_smartview->eval<bool>("setSongList({})",newSongs));
-    // }
+    if (window != nullptr) {
+        std::string newSongs = getSongListFromGP();
+        // saucer::forget(m_smartview->eval<bool>("setSongList({})",newSongs));
+    }
 }
 
 
@@ -82,95 +89,53 @@ bool LibMain::showChooser() {
 
     choc::ui::setWindowsDPIAwareness(); // For Windows, we need to tell the OS we're high-DPI-aware
 
-    choc::ui::DesktopWindow window ({ 100, 100, 800, 600 });
+    choc::ui::Bounds winsize = { 100, 100, 1080, 720 };
+    window = std::make_unique<choc::ui::DesktopWindow>(winsize);
 
-    window.setWindowTitle ("Hello");
-    window.setResizable (true);
-    window.setMinimumSize (300, 300);
-    window.setMaximumSize (1500, 1200);
-    window.windowClosed = [] { choc::messageloop::stop(); };
+    window->setWindowTitle ("Basic Song Chooser");
+    window->setResizable (true);
+    window->centreWithSize (1080, 720);
+    window->setMinimumSize (300, 300);
+    window->setMaximumSize (1500, 1200);
+    window->windowClosed = [&] { 
+        isVisible = false;
+        choc::messageloop::stop(); 
+    };
 
-    choc::ui::WebView webview;
+    choc::ui::WebView::Options wvopts = {false, false};
 
-    window.setContent (webview.getViewHandle());
+    choc::ui::WebView webview(wvopts);
 
-    webview.bind ("eventCallbackFn", [] (const choc::value::ValueView& args) -> choc::value::Value
-    {
-        auto message = "eventCallbackFn() called with args: " + choc::json::toString (args);
+    window->setContent (webview.getViewHandle());
 
-        // This just shows how to invoke an async callback
-        choc::messageloop::postMessage ([message]
-        {
-           //std::cout << "WebView callback message: " << message << std::endl;
-        });
-
+    webview.bind ("getSongListFromGP", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+        std::string message = getSongListFromGP();
         return choc::value::createString (message);
     });
 
-    webview.bind ("loadCHOCWebsite", [&webview] (const choc::value::ValueView&) -> choc::value::Value
-    {
-        webview.navigate ("https://github.com/Tracktion/choc");
+    webview.bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
+        window->setVisible(false);
+        window.reset();
         return {};
     });
 
-    webview.setHTML (R"xxx(
-      <!DOCTYPE html> <html>
-        <head> <title>Page Title</title> </head>
-        <script>
-          var eventCounter = 0;
+    webview.bind ("selectSong", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+        scriptLog(choc::json::toString (args), true);
 
-          // invokes a call to eventCallbackFn() and displays the return value
-          function sendEvent()
-          {
-            // When you invoke a function, it returns a Promise object
-            eventCallbackFn({ counter: ++eventCounter }, "Hello World")
-              .then ((result) => { document.getElementById ("eventResultDisplay").innerText = result; });
-          }
-        </script>
+        int slot = args[0].getInt32();
+        switchToSong(slot, 0);
+        
+        scriptLog(std::to_string(slot), true);
 
-        <body>
-          <h1>CHOC WebView Demo</h1>
-          <p>This is a demo of a choc::webview::WebView window</p>
-          <p><button onclick="sendEvent()">Click to invoke an event callback</button></p>
-          <p><button onclick="loadCHOCWebsite()">Click to visit the CHOC github repo</button></p>
-          <p id="eventResultDisplay"></p>
-        </body>
-      </html>
-    )xxx");
+        return {};
+    });
 
-    window.toFront();
+    webview.setHTML (html);
+
+
+
+    window->toFront();
     choc::messageloop::run();
-
-
-    // m_smartview = std::make_unique<saucer::simple_smartview<saucer::serializers::json>>();
-
-    // m_smartview->set_title("Basic Song Chooser");
-
-    // m_smartview->expose("selectSong", [&](int slot) {
-    //     switchToSong(slot, 0);
-    //     return slot;
-    // });
-
-    // m_smartview->expose("closeWindow", [&]() {
-    //     m_smartview->close();
-    //     return 0;
-    // });
-
-    // m_smartview->on<saucer::window_event::close>([&]() {
-    //     isVisible = false;
-    //     return false;
-    // });
-
-    // m_smartview->expose("getSongList", [&]() {
-    //     return getSongListFromGP();
-    // });
-
-    // m_smartview->embed_files(std::move(embedded::get_all_files()));
-    // m_smartview->serve_embedded("index.html");
-
-    // m_smartview->set_dev_tools(false);  // set to true to show Developer Tools with in your browser window for debugging the JavaScript
-    // m_smartview->show();
-    // m_smartview->run();
 
     return 0;
 }

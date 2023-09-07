@@ -9,13 +9,12 @@
 const std::string XMLProductDescription =   
      // Replace with your information            
     "<Library>" 
-    "<Product Name=\"Basic Song Chooser\" Version=\"1.0.1\" BuildDate=\"11/04/2023\"></Product> "
+    "<Product Name=\"Basic Song Chooser\" Version=\"1.1.0\" BuildDate=\"06/09/2023\"></Product> "
     "<Description>Demo song chooser extension that uses a web based UI</Description>"
     "<ImagePath>/Path/To/ImageFile/foo.jpg</ImagePath>"
     "</Library>"; 
 
 #define then
-
 
 
 // This needs to be initialized from the initialization secttion of the LibMain class so it can be used in the standalone functions directly below
@@ -24,9 +23,9 @@ const std::string XMLProductDescription =
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
 private:
-    //std::unique_ptr<saucer::simple_smartview<saucer::serializers::json>> m_smartview;   // the glolbal chooser window pointer
-    bool showingChooser = false;    // used to indicate when we are opening a chooser window
-    bool isVisible = false;         // used to indicate when a song chooser window is open
+    std::unique_ptr<choc::ui::DesktopWindow> window;    // the global chooser window pointer   
+    bool showingChooser = false;                        // used to indicate when we are opening a chooser window
+    bool isVisible = false;                             // used to indicate when a song chooser window is open
 
 protected:
     // These are for creating menu items in Gig Performer that can be used to trigger external functions provided by the extension developer
@@ -111,7 +110,7 @@ public:
         registerCallback("OnSetlistChanged");
         listenForWidget("showBasicChooser", true);           
            
-        consoleLog("path to library " + getPathToMe());  
+        //consoleLog("path to library " + getPathToMe());  
     }
 
     // Generally don't touch this - simply define the constant 'XMLProductDescription' at the top of this file with an XML description of your product

@@ -7,9 +7,9 @@ cmake_minimum_required(VERSION 3.0)
 set (PROJECT_VERSION "1.0")
 set (PROJECT_NAME "BasicSongChooser")
 
-# Set the appropriate GIT TAGS for the GigPerformer SDK and Saucer 
+# Set the appropriate GIT TAGS for the GigPerformer SDK and Tracktion Choc 
 set (GP_SDK_GIT_TAG "beta")     # 6c5432518ef42ea0870fb44597e9d1d3780e2f98 / changes-4621 / beta / main / f6b1ad94a3af83afd269a327e93ddc6cf94cb1b1
-set (SAUCER_GIT_TAG "dev")     # master / dev / experimental     
+set (CHOC_GIT_TAG "main")     # main / develop     
 
 project(${PROJECT_NAME} VERSION ${PROJECT_VERSION})
 
@@ -41,32 +41,28 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(gp-sdk)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
-
-
-# --------------------------------------------------------------------------------------------------------
-# Link libraries - fetch the Saucer library from GitHub and make it available to the project
-# --------------------------------------------------------------------------------------------------------
-
-include(FetchContent)
-FetchContent_Declare(
-    saucer 
-    GIT_REPOSITORY "https://github.com/saucer/saucer" 
-    GIT_TAG ${SAUCER_GIT_TAG}
-) 
-FetchContent_MakeAvailable(saucer)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE saucer)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp
+                                                  "-framework WebKit -framework CoreServices")
+else ()
+    target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
+endif ()
 
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})    # So that the LibMain.h can be found
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 20
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
+
+# On OSX, need to add the WebKit framework for WebView functionality
+#if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+#    target_link_libraries(${PROJECT_NAME} "-framework WebKit -framework CoreServices")
+#endif ()
+
 
 # Let's set compiler-specific flags
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
@@ -78,3 +74,9 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     # Set the DLLEXPORT variable to export symbols
     target_compile_definitions(${PROJECT_NAME} PRIVATE WIN_EXPORT)
 endif()
+
+# Install the extension on the development machine
+install(
+  TARGETS ${PROJECT_NAME}
+  LIBRARY DESTINATION "${GIG_PERFORMER_EXTENSIONS_DIRECTORY}"
+  RUNTIME DESTINATION "${GIG_PERFORMER_EXTENSIONS_DIRECTORY}")

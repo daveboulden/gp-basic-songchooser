@@ -1,7 +1,14 @@
 #include "LibMain.h"
+#include "webcontent.h"
+#include <iostream>
 
 std::string pathToMe; // This needs to be initialized from the initialization secttion of the LibMain class so it can be used in the standalone functions directly below
 std::vector<std::string> menuNames = { "Show Song Chooser"};    // List of menu items
+
+
+
+    //choc::ui::DesktopWindow window ({ 100, 100, 800, 600 });
+
 
 int LibMain::GetMenuCount() {
     return menuNames.size();
@@ -18,7 +25,7 @@ std::string  LibMain::GetMenuName(int index) {
 
 /***************************************************************************************************
  *
- *  If no pre-existing =Song chooser window is open: 
+ *  If no pre-existing Song chooser window is open: 
  *  Set indicator to show we want to open the Chooser Window once we are in SetList mode.
  *  Tell GP to swicth to SetList mode.
  * 
@@ -63,9 +70,9 @@ std::string LibMain::getSongListFromGP () {
  ****************************************************************************************************/
 
 void LibMain::updateChooser() {
-    if (m_smartview != nullptr) {
-        std::string newSongs = getSongListFromGP();
-        saucer::forget(m_smartview->eval<bool>("setSongList({})",newSongs));
+    if (window != nullptr) {
+        std::string newSongsJS = "setSongList(\"" + getSongListFromGP() + "\")";
+        webview->evaluateJavascript(newSongsJS);
     }
 }
 
@@ -79,38 +86,62 @@ void LibMain::updateChooser() {
 bool LibMain::showChooser() {
     isVisible = true;
     showingChooser = false;
-    
-    m_smartview = std::make_unique<saucer::simple_smartview<saucer::serializers::json>>();
 
-    m_smartview->set_title("Basic Song Chooser");
+    choc::ui::setWindowsDPIAwareness(); // For Windows, we need to tell the OS we're high-DPI-aware
 
-    m_smartview->expose("selectSong", [&](int slot) {
-        switchToSong(slot, 0);
-        return slot;
-    });
+    choc::ui::Bounds winsize = { 100, 100, 1080, 720 };
+    window = std::make_unique<choc::ui::DesktopWindow>(winsize);
 
-    m_smartview->expose("closeWindow", [&]() {
-        m_smartview->close();
-        return 0;
-    });
-
-    m_smartview->on<saucer::window_event::close>([&]() {
+    window->setWindowTitle ("Basic Song Chooser");
+    window->setResizable (true);
+    window->centreWithSize (1080, 720);
+    window->setMinimumSize (300, 300);
+    window->setMaximumSize (1920, 1200);
+    window->windowClosed = [&] { 
         isVisible = false;
-        return false;
+        webview.reset();
+        webview = nullptr;
+        window->setVisible(false);
+        // window.reset();
+        choc::messageloop::stop(); 
+    };
+
+    choc::ui::WebView::Options wvopts = {false, false};
+
+    webview = std::make_unique<choc::ui::WebView>(wvopts);
+
+    window->setContent (webview->getViewHandle());
+
+    webview->bind ("getSongListFromGP", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+        std::string message = getSongListFromGP();
+        return choc::value::createString (message);
     });
 
-    m_smartview->expose("getSongList", [&]() {
-        return getSongListFromGP();
+    webview->bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
+        // webview.reset();
+        isVisible = false;
+        window->setVisible(false);
+        window.reset();
+        window = nullptr;
+        return {};
     });
 
-    // m_smartview->embed(std::move(embedded::get_all_files()));
-    // m_smartview->serve("index.html");
-    m_smartview->embed_files(std::move(embedded::get_all_files()));
-    m_smartview->serve_embedded("index.html");
+    webview->bind ("selectSong", [&] (const choc::value::ValueView& args) -> choc::value::Value {
+        int slot = -1;
 
-    m_smartview->set_dev_tools(false);  // set to true to show Developer Tools with in your browser window for debugging the JavaScript
-    m_smartview->show();
-    m_smartview->run();
+        if (args.isArray() && args.size() != 0) 
+            slot = args[0].getInt64();
+
+        if (slot != -1) 
+            switchToSong(slot, 0);
+
+        return {};
+    });
+
+    webview->setHTML (html);
+
+    window->toFront();
+    choc::messageloop::run();
 
     return 0;
 }

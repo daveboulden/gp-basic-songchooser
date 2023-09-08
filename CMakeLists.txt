@@ -74,3 +74,9 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
     # Set the DLLEXPORT variable to export symbols
     target_compile_definitions(${PROJECT_NAME} PRIVATE WIN_EXPORT)
 endif()
+
+# Install the extension on the development machine
+install(
+  TARGETS ${PROJECT_NAME}
+  LIBRARY DESTINATION "${GIG_PERFORMER_EXTENSIONS_DIRECTORY}"
+  RUNTIME DESTINATION "${GIG_PERFORMER_EXTENSIONS_DIRECTORY}")

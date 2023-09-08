@@ -89,7 +89,7 @@ The build process is handled by [CMAKE](https://cmake.org/) which you will need 
 
 If you wish to clone the repository and track your own changes to the code, you will need [Git](https://git-scm.com/).
 
-If hosting your repo on GitHub, then the file `.github/workflows/build.yaml` will initiate a build of both the Mac and Windows extensions upon eacxh commit to your repo.
+If hosting your repo on GitHub, then the file `.github/workflows/build.yaml` will initiate a build of both the Mac and Windows extensions upon each commit to your repo.
 
 
 ### Installation

@@ -43,7 +43,7 @@ FetchContent_MakeAvailable(gp-sdk)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp
-                                            "-framework WebKit -framework CoreServices")
+                                                  "-framework WebKit -framework CoreServices")
 else ()
     target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
 endif ()

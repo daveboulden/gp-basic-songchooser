@@ -25,7 +25,7 @@ std::string  LibMain::GetMenuName(int index) {
 
 /***************************************************************************************************
  *
- *  If no pre-existing =Song chooser window is open: 
+ *  If no pre-existing Song chooser window is open: 
  *  Set indicator to show we want to open the Chooser Window once we are in SetList mode.
  *  Tell GP to swicth to SetList mode.
  * 
@@ -84,7 +84,7 @@ void LibMain::updateChooser() {
  ****************************************************************************************************/
 
 bool LibMain::showChooser() {
-    // isVisible = true;
+    isVisible = true;
     showingChooser = false;
 
     choc::ui::setWindowsDPIAwareness(); // For Windows, we need to tell the OS we're high-DPI-aware
@@ -96,9 +96,11 @@ bool LibMain::showChooser() {
     window->setResizable (true);
     window->centreWithSize (1080, 720);
     window->setMinimumSize (300, 300);
-    window->setMaximumSize (1500, 1200);
+    window->setMaximumSize (1920, 1200);
     window->windowClosed = [&] { 
         isVisible = false;
+        webview.reset();
+        webview = nullptr;
         window->setVisible(false);
         // window.reset();
         choc::messageloop::stop(); 
@@ -116,8 +118,11 @@ bool LibMain::showChooser() {
     });
 
     webview->bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
+        // webview.reset();
+        isVisible = false;
         window->setVisible(false);
         window.reset();
+        window = nullptr;
         return {};
     });
 

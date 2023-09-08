@@ -190,7 +190,7 @@ Project Link: [https://github.com/daveboulden/gp-basic-songchooser](https://gith
 [HTML5-url]: https://html.spec.whatwg.org/multipage/
 [css3-shield]: https://img.shields.io/badge/css3-333333?style=for-the-badge&logo=css3&logoColor=1572B6
 [css3-url]: https://www.w3.org/TR/css-syntax-3/
-[choc-shield]: https://img.shields.io/badge/Choc-333333?style=for-the-badge&logo=github&logoColor=181717
+[choc-shield]: https://img.shields.io/badge/Tracktion\/Choc-333333?style=for-the-badge&logo=github&logoColor=181717
 [choc-url]: https://github.com/Tracktion/choc/
 [gpsdk-shield]: https://img.shields.io/badge/GigPerformer_API-333333?style=for-the-badge&logo=github&logoColor=181717
 [gpsdk-url]: https://github.com/gigperformer/gp-sdk

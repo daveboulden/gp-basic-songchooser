@@ -119,6 +119,9 @@ Use the supplied scripts to build your project:
 * Windows - `release.cmd` (builds a Release version and places it in the `build/Release` directory)
 * Mac - `build.sh` (builds a Debug version and copies it to the Extensions directory of Gig performer)
 
+### CI/CD
+
+Also included is `.github\workflows\build.yaml` (by Simon Leiner) which will automatically build Windows and MacOS binaries and package them in a downloadable ZIP file after each commit when your repo is hosted on GitHub.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -177,6 +180,7 @@ Project Link: [https://github.com/daveboulden/gp-basic-songchooser](https://gith
 * [David Jamieson](http://www.gigperformer.com/) for first-hand help with C++ coding concepts using the GigPerformer API
 * [@rank13](https://github.com/gp-rank13) for the code used to form the basis of the `getSongListFromGP()` function
 * [Simon Leiner](https://github.com/sleiner) for help and advice with CMake and building the GitHub Action `build.yaml` for GP extensions
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -56,7 +56,17 @@ public:
     // and, in the Initialization method at the end of this class, 
     // call RegisterCallback for each of these methods
 
-    
+    /***************************************************************************************************
+     * 
+     *  The user has closed the extension. Delete all meory allocations.
+     * 
+     ****************************************************************************************************/
+
+    void OnClose() override {
+        window = nullptr;
+        webview = nullptr;
+    };
+
     /***************************************************************************************************
      * 
      *  The user has selected a new set list, refresh the contents of the chooser window.
@@ -99,7 +109,6 @@ public:
     }
 
 
-
     void Initialization() override {
         // Do any initialization that you need
             
@@ -110,14 +119,12 @@ public:
         registerCallback("OnWidgetValueChanged");
         registerCallback("OnModeChanged");
         registerCallback("OnSetlistChanged");
+        registerCallback("OnClose");
         listenForWidget("showBasicChooser", true);           
-           
-        //consoleLog("path to library " + getPathToMe());  
     }
 
     // Generally don't touch this - simply define the constant 'XMLProductDescription' at the top of this file with an XML description of your product
     std::string GetProductDescription() override { // This MUST be defined in your class
         return XMLProductDescription;
     }
-
 };

@@ -106,7 +106,7 @@ bool LibMain::showChooser() {
         choc::messageloop::stop(); 
     };
 
-    choc::ui::WebView::Options wvopts = {false, false};
+    choc::ui::WebView::Options wvopts = {true, false};
 
     webview = std::make_unique<choc::ui::WebView>(wvopts);
 
@@ -122,7 +122,6 @@ bool LibMain::showChooser() {
         isVisible = false;
         window->setVisible(false);
         window.reset();
-        window = nullptr;
         return {};
     });
 

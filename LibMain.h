@@ -64,10 +64,9 @@ public:
 
     void OnClose() override {
         isVisible = false;
-        window->setVisible(false);    
-        window.reset();
-        window = nullptr;
-        webview = nullptr;
+        if (window) {
+            window->setVisible(false);    
+        }
     };
 
     /***************************************************************************************************

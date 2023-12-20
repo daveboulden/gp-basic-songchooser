@@ -118,10 +118,10 @@ bool LibMain::showChooser() {
     });
 
     webview->bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
-        // webview.reset();
         isVisible = false;
-        window->setVisible(false);
-        window.reset();
+        if (window) {
+            window->setVisible(false);
+        }
         return {};
     });
 

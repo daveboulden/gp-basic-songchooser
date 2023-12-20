@@ -1,6 +1,3 @@
-::Run the Saucer CLI tool to embed the HMTL file structure
-CALL saucer embed "content"
-
 ::Create a build directory if it's not already there
 mkdir build
 

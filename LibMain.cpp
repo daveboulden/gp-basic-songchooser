@@ -6,10 +6,6 @@ std::string pathToMe; // This needs to be initialized from the initialization se
 std::vector<std::string> menuNames = { "Show Song Chooser"};    // List of menu items
 
 
-
-    //choc::ui::DesktopWindow window ({ 100, 100, 800, 600 });
-
-
 int LibMain::GetMenuCount() {
     return menuNames.size();
 }
@@ -99,10 +95,6 @@ bool LibMain::showChooser() {
     window->setMaximumSize (1920, 1200);
     window->windowClosed = [&] { 
         isVisible = false;
-        webview.reset();
-        webview = nullptr;
-        window->setVisible(false);
-        // window.reset();
         choc::messageloop::stop(); 
     };
 

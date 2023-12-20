@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 # Change the PROJECT_VERSION and PROJECT_NAME values to suit your own project
-set (PROJECT_VERSION "1.0")
+set (PROJECT_VERSION "1.2.0")
 set (PROJECT_NAME "BasicSongChooser")
 
 # Set the appropriate GIT TAGS for the GigPerformer SDK and Tracktion Choc 

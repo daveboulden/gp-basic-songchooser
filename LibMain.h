@@ -63,10 +63,10 @@ public:
      ****************************************************************************************************/
 
     void OnClose() override {
-        isVisible = false;
-        if (window) {
+        if (isVisible) {
             window->setVisible(false);    
         }
+        isVisible = false;
     };
 
     /***************************************************************************************************
@@ -104,9 +104,20 @@ public:
 
     void OnWidgetValueChanged(const std::string & widgetName, double newValue) override {
         if (widgetName == "showBasicChooser") {
-            if (newValue == 1.0) {
+            if (isVisible) {
+                window->toFront();
+            } else if (newValue == 1.0) {
                 initChooser();
             }
+
+            // if (isVisible) {
+            //     window->toFront();
+            // } else if (window) {
+            //     window->setVisible(true);
+            //     window->toFront();
+            // } else if (newValue == 1.0) {
+            //     initChooser();
+            // }
         }
     }
 

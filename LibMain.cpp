@@ -92,9 +92,11 @@ bool LibMain::showChooser() {
     window->setResizable (true);
     window->centreWithSize (1080, 720);
     window->setMinimumSize (300, 300);
-    window->setMaximumSize (1920, 1200);
+    window->setMaximumSize (3840, 2400);
     window->windowClosed = [&] { 
         isVisible = false;
+        webview = nullptr;
+        window = nullptr;
         choc::messageloop::stop(); 
     };
 
@@ -110,10 +112,10 @@ bool LibMain::showChooser() {
     });
 
     webview->bind ("closeSongSelector", [&] (const choc::value::ValueView&) -> choc::value::Value {
-        isVisible = false;
-        if (window) {
+        if (isVisible) {
             window->setVisible(false);
         }
+        isVisible = false;
         return {};
     });
 

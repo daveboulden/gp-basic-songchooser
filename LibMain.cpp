@@ -47,12 +47,16 @@ std::string LibMain::getSongListFromGP () {
     std::string songList = "";
     std::string thisSong;
     std::string thisArtist;
+    std::string thisKey;
+    double thisBPM;
 
     for (int i = 0; i < getSongCount(); ++i) {
         thisSong = getSongName(i);
         thisArtist = getArtistName(i);
+        thisKey = getSongKey(i);
+        thisBPM = getSongTempo(i);
         songList += "<li class='song-item' data-song-artist='" + thisSong + " | " + thisArtist + "'><a class='song-select' data-slot='" +
-                    std::to_string(i) + "'>" + thisSong + " - " + thisArtist + "</a></li>";
+                    std::to_string(i) + "'>" + thisSong + " - " + thisArtist + "(" + thisKey + ")" "</a></li>";
     }
 
     return songList;
@@ -90,13 +94,13 @@ bool LibMain::showChooser() {
 
     window->setWindowTitle ("Basic Song Chooser");
     window->setResizable (true);
+    window->setClosable (false);
     window->centreWithSize (1080, 720);
     window->setMinimumSize (300, 300);
-    window->setMaximumSize (3840, 2400);
     window->windowClosed = [&] { 
         isVisible = false;
-        webview = nullptr;
-        window = nullptr;
+        // webview = nullptr;
+        // window = nullptr;
         choc::messageloop::stop(); 
     };
 

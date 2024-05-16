@@ -63,10 +63,12 @@ public:
      ****************************************************************************************************/
 
     void OnClose() override {
-        if (isVisible) {
-            window->setVisible(false);    
-        }
         isVisible = false;
+        if (window) {
+            window->setVisible(false);    
+            if (webview) webview = nullptr;
+            window = nullptr;
+        }
     };
 
     /***************************************************************************************************

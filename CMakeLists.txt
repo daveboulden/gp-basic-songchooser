@@ -8,7 +8,7 @@ set (PROJECT_VERSION "1.2.0")
 set (PROJECT_NAME "BasicSongChooser")
 
 # Set the appropriate GIT TAGS for the GigPerformer SDK and Tracktion Choc 
-set (GP_SDK_GIT_TAG "beta")     # 6c5432518ef42ea0870fb44597e9d1d3780e2f98 / changes-4621 / beta / main / f6b1ad94a3af83afd269a327e93ddc6cf94cb1b1
+set (GP_SDK_GIT_TAG "756ecd249f1ff00f3d3a5955769408f74c9fa453")     # 6c5432518ef42ea0870fb44597e9d1d3780e2f98 / changes-4621 / beta / main / f6b1ad94a3af83afd269a327e93ddc6cf94cb1b1
 set (CHOC_GIT_TAG "main")     # main / develop     
 
 project(${PROJECT_NAME} VERSION ${PROJECT_VERSION})

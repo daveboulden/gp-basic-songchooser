@@ -9,7 +9,7 @@
 const std::string XMLProductDescription =   
      // Replace with your information            
     "<Library>" 
-    "<Product Name=\"Basic Song Chooser\" Version=\"1.2.0\" BuildDate=\"20/12/2023\"></Product> "
+    "<Product Name=\"Basic Song Chooser\" Version=\"1.3.0\" BuildDate=\"16/05/2024\"></Product> "
     "<Description>Demo song chooser extension that uses a web based UI</Description>"
     "<ImagePath>/Path/To/ImageFile/foo.jpg</ImagePath>"
     "</Library>"; 

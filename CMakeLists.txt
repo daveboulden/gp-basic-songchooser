@@ -1,7 +1,8 @@
 # CMakeLists.txt
 
 # Always set the cmake min version.
-cmake_minimum_required(VERSION 3.0)
+# 3.21 matches CMakePresets.json (preset schema v3). CMake 4.x rejects anything below 3.5.
+cmake_minimum_required(VERSION 3.21...3.31)
 
 # Change the PROJECT_VERSION and PROJECT_NAME values to suit your own project
 set (PROJECT_VERSION "1.3.0")
@@ -32,6 +33,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE "embedding")     # include em
 # --------------------------------------------------------------------------------------------------------
 # Link libraries - fetch the GP_SDK library from GitHub and make it available to the project
 # --------------------------------------------------------------------------------------------------------
+
+# The GP SDK's own CMakeLists may declare an old minimum version; let CMake 4.x configure it anyway.
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 
 include(FetchContent)
 FetchContent_Declare(

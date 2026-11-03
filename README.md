@@ -48,7 +48,7 @@
 ## About The Project
 
 <div align="center">
-    <img src="images/GP-basic-songchooser-screenshot.png" alt="Logo" width="600">
+    <img src="images/GP-basic-songchooser-screenshot-1-4.png" alt="Logo" width="600">
 </div>
 
 **NOTE: this branch is only compatible with Gig Performer v4.7 and above**

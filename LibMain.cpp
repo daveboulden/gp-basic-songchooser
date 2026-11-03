@@ -48,15 +48,17 @@ std::string LibMain::getSongListFromGP () {
     std::string thisSong;
     std::string thisArtist;
     std::string thisKey;
-    double thisBPM;
 
     for (int i = 0; i < getSongCount(); ++i) {
         thisSong = getSongName(i);
         thisArtist = getArtistName(i);
         thisKey = getSongKey(i);
-        thisBPM = getSongTempo(i);
-        songList += "<li class='song-item' data-song-artist='" + thisSong + " | " + thisArtist + "'><a class='song-select' data-slot='" +
-                    std::to_string(i) + "'>" + thisSong + " - " + thisArtist + "(" + thisKey + ")" "</a></li>";
+        songList += "<li class='song-item' data-song-artist='" + thisSong + " | " + thisArtist + "'>"
+                    "<a class='song-select' data-slot='" + std::to_string(i) + "'>"
+                    "<span class='song-name'>" + thisSong + "</span>"
+                    "<span class='song-artist'>" + thisArtist + "</span>"
+                    + (thisKey.empty() ? "" : "<span class='song-key'>(" + thisKey + ")</span>") +
+                    "</a></li>";
     }
 
     return songList;
